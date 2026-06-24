@@ -36,18 +36,6 @@ const AdminPanel = ({ onLogout }) => {
     fetchProducts();
   }, [fetchProducts]);
 
-  const fetchProducts = async () => {
-    try {
-      setLoading(true);
-      const response = await axios.get(`${API_URL}/products`);
-      setProducts(response.data.data || []);
-    } catch (error) {
-      setMessage('Error fetching products');
-    } finally {
-      setLoading(false);
-    }
-  };
-
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({

@@ -6,7 +6,7 @@ import { CartContext } from '../context/CartContext';
 
 const ProductList = () => {
   const [products, setProducts] = useState([]);
-  const [/*filteredProducts*/, setFilteredProducts] = useState([]);
+  // filteredProducts computed with useMemo
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All');
@@ -31,20 +31,6 @@ const ProductList = () => {
   useEffect(() => {
     fetchProducts();
   }, [fetchProducts]);
-
-  const fetchProducts = async () => {
-    try {
-      setLoading(true);
-      const response = await axios.get(`${API_URL}/products`);
-      setProducts(response.data.data || []);
-      setFilteredProducts(response.data.data || []);
-    } catch (error) {
-      console.error('Error fetching products:', error);
-      setProducts([]);
-    } finally {
-      setLoading(false);
-    }
-  };
 
   const filteredProducts = useMemo(() => {
     return products.filter(product => {
